@@ -1,8 +1,0 @@
-services:
-  - type: web
-    name: apex-vpn
-    runtime: python
-    plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: python apex-server.py
-    healthCheckPath: /healthz
