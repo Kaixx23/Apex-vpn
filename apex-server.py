@@ -134,8 +134,8 @@ PAGE_BASE = """<!doctype html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 __REFRESH__
 <title>__TITLE__</title>
-<style>body{font-family:-apple-system,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;display:flex;justify-content:center;padding:20px}
-.card{background:#1e293b;border-radius:16px;padding:24px;max-width:480px;width:100%;margin-bottom:14px}
+<style>body{font-family:-apple-system,'Segoe UI',sans-serif;background:#0f172a;color:#e2e8f0;display:flex;justify-content:center;align-items:flex-start;padding:24px 16px}
+.card{background:#1e293b;border-radius:16px;padding:24px;max-width:480px;width:100%;margin:0 auto 14px;box-shadow:0 12px 32px rgba(0,0,0,.35)}
 h1{font-size:21px;margin:0 0 6px}
 h2{font-size:17px;margin:0 0 8px}
 .sub{color:#94a3b8;font-size:13px;text-align:center;margin-bottom:16px}
@@ -147,8 +147,8 @@ h2{font-size:17px;margin:0 0 8px}
 .grid div{background:#0f172a;border-radius:10px;padding:10px 12px}
 .grid b{display:block;font-size:17px}.grid span{font-size:12px;color:#94a3b8}
 .exp{margin-top:14px;color:#fbbf24;font-size:15px;text-align:center}
-.btn{display:block;margin-top:10px;background:#2563eb;color:#fff;text-decoration:none;
-padding:13px;border-radius:11px;font-size:15px;text-align:center;font-weight:600}
+.btn{display:block;margin-top:10px;background:#2563eb;color:#fff;text-decoration:none;border:0;cursor:pointer;
+padding:13px;border-radius:11px;font-size:15px;text-align:center;font-weight:600;width:100%;box-sizing:border-box}
 .btn.gray{background:#334155}.btn.green{background:#34d399;color:#0f172a}
 label{display:block;font-size:14px;margin:12px 0 6px;color:#cbd5e1}
 input[type=text],textarea{width:100%;box-sizing:border-box;background:#0f172a;border:1px solid #334155;color:#e2e8f0;
@@ -165,7 +165,7 @@ padding:14px;border-radius:11px;font-size:16px}
 .row{border-top:1px solid #334155;margin-top:18px;padding-top:14px}
 .msg{font-size:13px;color:#cbd5e1;background:#0f172a;border-radius:10px;padding:12px;line-height:1.6;white-space:pre-wrap}
 .steps{margin-top:16px;font-size:14px;line-height:1.8;color:#cbd5e1}
-</style></head><body>__BODY__</body></html>"""
+</style></head><body><div class="card">__BODY__</div></body></html>"""
 
 
 def render(title, body, refresh=False):
