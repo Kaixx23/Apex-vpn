@@ -1,0 +1,112 @@
+APEX VPN — KEEP-ALIVE & TROUBLESHOOTING GUIDE (read once, save it)
+===================================================================
+
+YOUR INFRASTRUCTURE (what runs your business)
+---------------------------------------------
+1. GitHub repo  = your code backup + deploy trigger (free)
+2. Render free  = the hosting that serves https://apex-vpn-eead.onrender.com
+3. (recommended) cron-job.org = tiny free robot that pings your site
+   every 10 min so it never goes to sleep
+
+=====================================================================
+SETUP #1 — MAKE THE SITE LOAD INSTANTLY FOR CLIENTS (5 min, free)
+=====================================================================
+Free Render "sleeps" after ~15 minutes with no visitors. The first
+client to open it after that waits 15-60 seconds. A tiny free ping
+every 10 minutes prevents it from ever sleeping:
+
+1. Sign up free at https://cron-job.org
+2. "Add a cron job"
+3. Name: apex
+4. Type: URL
+5. URL:  https://apex-vpn-eead.onrender.com/healthz
+6. Frequency: 10 minutes  (or "5 min" if offered on free)
+7. Save
+
+Done — clients will now always get instant loads.
+
+=====================================================================
+DAILY BUSINESS FLOW (what you do)
+=====================================================================
+1. Get a client's provider link from your supplier.
+2. Open https://apex-vpn-eead.onrender.com/tool  (YOUR seller tool —
+   note the /tool at the end. The main link without /tool is the
+   client page you share with clients.)
+3. Brand name: your brand. Paste the link(s) — up to 20 at once.
+4. Tap "Generate client packs".
+5. For each client you get:
+   - ✨ rebranded share link  → works in Shadowrocket/v2rayNG/NekoBox/Hiddify,
+     nodes appear under YOUR brand name
+   - 🔄 Clash auto-update link (same, for Clash apps — self-updating)
+   - 🔗 private quota link + ⬇️ branded yaml
+   - 📋 "Message" button  → a ready-made message to send
+6. Send file + message. Done. 50 clients = 50 pastes. No deploys.
+
+=====================================================================
+TROUBLESHOOTING — when something looks broken
+=====================================================================
+
+SYMPTOM: Client says "site is slow / won't open" (first tap)
+  → Normal if you haven't done Setup #1 (keep-alive ping).
+  → After 1-2 min retry it loads fast. Set up the ping to avoid this.
+
+SYMPTOM: Site won't open at all (even after minutes)
+  → 1. Go to https://dashboard.render.com
+  → 2. Your service card should say "Live".
+       - If it says "Error" or "Failed": tap it → "Logs" tab →
+         send me a screenshot of the red errors.
+       - If it says "Deploying": it's just deploying — wait 2 min.
+  → 3. If the service card is "Live" but the page doesn't load,
+     send me a screenshot of what your client sees.
+
+SYMPTOM: A deploy broke the site (after you changed a file)
+  → ONE-CLICK FIX: dashboard.render.com → your service → "Deployments"
+     tab → find the latest (red/failed or the one that broke it) →
+     tap the "↩ Rollback" button. Site reverts to the last good
+     version in ~1 minute.
+
+SYMPTOM: Client's page shows "Couldn't read that link / invalid"
+  → Their provider link is expired or was retyped wrong.
+  → They open their personal page again, paste the FRESH link,
+     get a new personal URL. (Or use your Seller Tool to re-generate.)
+
+SYMPTOM: Page loads but says "quota text not recognized"
+  → Your provider changed their status format. Send me a fresh
+     provider link — I'll update the parser, you upload the new
+     apex-server.py to GitHub, done in ~2 min.
+
+SYMPTOM: "No VLESS nodes found"
+  → Provider changed node format/protocol. Same fix: send me a
+     fresh link, I update the converter.
+
+=====================================================================
+UPDATING THE SITE (when I send you a new apex-server.py)
+=====================================================================
+1. github.com → your apex-vpn repo → "apex-server.py"
+2. Tap the pencil (Edit) → delete all → paste the new file →
+   "Commit changes"
+3. Render detects it and auto-redeploys in ~1-2 minutes.
+4. If it breaks: Rollback (see above) and send me the error.
+
+=====================================================================
+GROWTH & MONEY
+=====================================================================
+- Free Render is fine for your current scale (dozens of clients).
+- Once this makes real money, upgrade the service to "Starter"
+  ($7/month) in the Render dashboard → it then runs 24/7 with no
+  sleep at all, higher limits, and it's officially "production".
+  The keep-alive ping then becomes optional.
+- Your code lives safely in GitHub. If you ever lose a device,
+  everything is recoverable from the repo + this guide.
+
+=====================================================================
+SECURITY RULES
+=====================================================================
+- Your public GitHub repo contains NO tokens or client links —
+  verified. Keep it that way (only I edit those files).
+- Each client's personal quota link encodes THEIR subscription.
+  Tell clients: don't share your personal link.
+- Never share your own supplier link publicly — it controls your
+  whole quota pool.
+- Keep your GitHub + Render + email passwords safe (they control
+  your business). A password manager is worth it.
